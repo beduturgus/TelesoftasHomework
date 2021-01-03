@@ -5,7 +5,7 @@ const QUALITY_INTERVAL = [0, 50];
 const SELLINS_INTERVAL = [0, 10];
 const MAX_ITEM_COUNT = 9;
 
-class Input_generator extends Readable {
+class Input_generator_service extends Readable {
   constructor(options) {
     super(options);
     this.count = 0;
@@ -21,13 +21,12 @@ class Input_generator extends Readable {
       }
     } while (mayPush && this.moreData);
     if (mayPush) {
-      console.log('finish');
       this.push(null);
     }
   }
 }
 
-function generateInputLine() {
+const generateInputLine = () => {
   return `${ITEM_NAMES[random(0, 6)]}#${random(QUALITY_INTERVAL[0],
       QUALITY_INTERVAL[1])}#${random(SELLINS_INTERVAL[0],
       SELLINS_INTERVAL[1])}\n`;
@@ -37,5 +36,5 @@ const random = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-module.exports = { InputGenerator: Input_generator }
+module.exports = { InputGenerator: Input_generator_service }
 

@@ -1,6 +1,7 @@
-const {Item} = require('./gilded_rose')
+const {get_name, get_sellIn, get_quality} = require("../utils");
+const {Item} = require('../item')
 const {Transform} = require('stream')
-const {apply_special_item_rules} = require('./special_item_logic')
+const {apply_special_item_rules} = require('./special_item_logic_service')
 
 const SPECIAL_ITEMS = ['sulfuras', 'aged brie', 'backstage passes', 'conjured']
 
@@ -15,7 +16,7 @@ const special_items_transform = new Transform({
 const object_mapping_transform = new Transform({
   transform(chunk, encoding, callback) {
     console.log(chunk.toString())
-    const item = new Item(getName(chunk), getSellIn(chunk), getQuality(chunk))
+    const item = new Item(get_name(chunk), get_sellIn(chunk), get_quality(chunk))
     this.push(JSON.stringify(item))
     callback()
   }
@@ -46,24 +47,6 @@ const performDailyReduction = (item) => {
   item.quality = (quality < 0 ? 0 : quality).toString()
   item.sellIn = sellIn.toString()
   return item
-}
-
-const getSellIn = (chunk) => {
-  const res =  chunk.toString().match(/\d+/g)
-  return res[res.length-2]
-}
-
-const getQuality = (chunk) => {
-  const res =  chunk.toString().match(/\d+/g)
-  return res[res.length-1]
-}
-
-const getName = (chunk) => {
-  return chunk.toString().split("#")[0]
-}
-
-const between = (x, min, max) => {
-  return x >= min && x <= max
 }
 
 module.exports = {

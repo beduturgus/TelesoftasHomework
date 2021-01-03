@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Gilded Rose kata in JavaScript with Jest",
   "scripts": {
-    "start": "node ./test/texttest_fixture.js",
+    "start": "node ./src/app.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage"
