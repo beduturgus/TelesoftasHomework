@@ -3,7 +3,6 @@ const fs = require('fs')
 
 const ITEM_NAMES = ['Backstage passes to a TAFKAL80ETC concert', 'Aged Brie',
   'Sulfuras', 'Hand of Ragnaros', 'foo', 'Conjured Mana Cake'];
-const OUTPUT_DESTINATION = 'big_file.txt'
 const QUALITY_INTERVAL = [0, 50];
 const SELLINS_INTERVAL = [0, 10];
 const MAX_ITEM_COUNT = 9;
@@ -28,10 +27,6 @@ class InputGenerator extends Readable {
     }
   }
 }
-
-const inputGenerator = new InputGenerator()
-const output = fs.createWriteStream(OUTPUT_DESTINATION)
-inputGenerator.pipe(output)
 
 const generateInputLine = () => {
   return `${ITEM_NAMES[random(0, 6)]}#${random(QUALITY_INTERVAL[0],

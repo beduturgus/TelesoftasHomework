@@ -29,10 +29,3 @@ To generate test coverage report
 ```sh
 npm run test:coverage
 ```
-
-To generate file
-
-```
-npm run generate_file
-```
-Amount of items can be configured inside InputGenerator file by changing MAX_ITEM_COUNT parameter

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Gilded Rose kata in JavaScript with Jest",
   "scripts": {
-    "generate_file": "node ./src/InputGenerator.js",
     "start": "node ./src/app.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -26,5 +25,7 @@
   "homepage": "https://github.com/emilybache/GildedRose-Refactoring-Kata",
   "devDependencies": {
     "jest": "^24.9.0"
+  },
+  "dependencies": {
   }
 }

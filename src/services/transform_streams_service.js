@@ -1,38 +1,33 @@
-const {get_name, get_sellIn, get_quality} = require("../utils");
+const {get_name, get_sellIn, get_quality, get_day_count} = require("../utils");
 const {Item} = require('../item')
 const {Transform} = require('stream')
 const {apply_special_item_rules} = require('./special_item_logic_service')
 
 const SPECIAL_ITEMS = ['sulfuras', 'aged brie', 'backstage passes', 'conjured']
 
-const special_items_transform = new Transform({
+const daily_transform = new Transform({
   transform(chunk, encoding, callback) {
-    const result = apply_special_item_rules(JSON.parse(chunk))
+    const chunk_string = chunk.toString()
+    const item = new Item(get_name(chunk_string), get_sellIn(chunk_string), get_quality(chunk_string))
+    const result = perform_update(item, get_day_count(chunk_string))
+
     this.push(JSON.stringify(result))
     callback()
   }
 })
 
-const object_mapping_transform = new Transform({
-  transform(chunk, encoding, callback) {
-    console.log(chunk.toString())
-    const item = new Item(get_name(chunk), get_sellIn(chunk), get_quality(chunk))
-    this.push(JSON.stringify(item))
-    callback()
+const perform_update = (item, days, counter = 0) => {
+  if(!SPECIAL_ITEMS.some(str => item.name.toString().toLowerCase().includes(str))) {
+    performDailyReduction(item)
   }
-})
-
-const daily_transform = new Transform({
-  transform(chunk, encoding, callback) {
-    const item = JSON.parse(chunk)
-    const name = item.name.toString().toLowerCase()
-    if(!SPECIAL_ITEMS.some(str => name.includes(str))) {
-      performDailyReduction(item)
-    }
-    this.push(JSON.stringify(item))
-    callback()
+  const res = apply_special_item_rules(item)
+  counter++
+  if(counter < days) {
+    return perform_update(res, days, counter)
+  } else {
+    return res
   }
-})
+}
 
 const performDailyReduction = (item) => {
   let quality = parseInt(item.quality)
@@ -46,11 +41,8 @@ const performDailyReduction = (item) => {
   }
   item.quality = (quality < 0 ? 0 : quality).toString()
   item.sellIn = sellIn.toString()
-  return item
 }
 
 module.exports = {
-  special_items_transform,
   daily_transform,
-  object_mapping_transform
 }
