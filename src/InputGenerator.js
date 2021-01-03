@@ -1,11 +1,14 @@
 const {Readable} = require('stream');
+const fs = require('fs')
+
 const ITEM_NAMES = ['Backstage passes to a TAFKAL80ETC concert', 'Aged Brie',
-  'Sulfuras', 'Hand of Ragnaros', 'foo', "Conjured Mana Cake"];
+  'Sulfuras', 'Hand of Ragnaros', 'foo', 'Conjured Mana Cake'];
+const OUTPUT_DESTINATION = 'big_file.txt'
 const QUALITY_INTERVAL = [0, 50];
 const SELLINS_INTERVAL = [0, 10];
 const MAX_ITEM_COUNT = 9;
 
-class Input_generator_service extends Readable {
+class InputGenerator extends Readable {
   constructor(options) {
     super(options);
     this.count = 0;
@@ -26,6 +29,10 @@ class Input_generator_service extends Readable {
   }
 }
 
+const inputGenerator = new InputGenerator()
+const output = fs.createWriteStream(OUTPUT_DESTINATION)
+inputGenerator.pipe(output)
+
 const generateInputLine = () => {
   return `${ITEM_NAMES[random(0, 6)]}#${random(QUALITY_INTERVAL[0],
       QUALITY_INTERVAL[1])}#${random(SELLINS_INTERVAL[0],
@@ -36,5 +43,5 @@ const random = (min, max) => {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-module.exports = { InputGenerator: Input_generator_service }
+module.exports = { InputGenerator: InputGenerator }
 
