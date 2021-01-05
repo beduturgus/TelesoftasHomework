@@ -1,7 +1,7 @@
 const fs = require('fs')
 const readline = require('readline')
 const {Readable} = require('stream')
-const {InputGenerator} = require("./InputGenerator");
+const {InputGenerator} = require("./InputGenerator")
 const {update_stream} = require("./services/transform_streams_service")
 const {write_to_files_stream} = require('./services/write_stream_service')
 

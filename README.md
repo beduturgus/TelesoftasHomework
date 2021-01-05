@@ -1,6 +1,6 @@
 ## Description
 
-App generates list of length that is configurable in InputGenerator file MAX_ITEM_COUNT variable.
+App generates items list of length that is configurable in InputGenerator file MAX_ITEM_COUNT variable.
 App updates every item according to business rules and stores it to specific file.
 
 ## Technologies
