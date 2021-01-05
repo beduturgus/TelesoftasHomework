@@ -6,7 +6,8 @@
     "start": "node ./src/app.js",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:mutate": "stryker run stryker.conf.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,12 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
-    "line-reader": "^0.4.0"
+    "memorystream": "^0.3.1",
+    "stryker": "^0.35.1",
+    "@stryker-mutator/babel-transpiler": "^3.3.1",
+    "@stryker-mutator/core": "^3.3.1",
+    "@stryker-mutator/html-reporter": "^3.1.0",
+    "@stryker-mutator/javascript-mutator": "^3.3.1",
+    "@stryker-mutator/jest-runner": "^3.3.1"
   }
 }
