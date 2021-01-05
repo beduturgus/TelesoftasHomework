@@ -33,5 +33,5 @@ module.exports = {
   get_quality,
   get_name,
   get_day_count,
-  get_type
+  get_type,
 }

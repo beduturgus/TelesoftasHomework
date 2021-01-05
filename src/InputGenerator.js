@@ -5,7 +5,7 @@ const ITEM_NAMES = ['Backstage passes to a TAFKAL80ETC concert', 'Aged Brie',
   'Sulfuras', 'Hand of Ragnaros', 'foo', 'Conjured Mana Cake'];
 const QUALITY_INTERVAL = [0, 50];
 const SELLINS_INTERVAL = [0, 10];
-const MAX_ITEM_COUNT = 9;
+const MAX_ITEM_COUNT = 1000000;
 
 class InputGenerator extends Readable {
   constructor(options) {

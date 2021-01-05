@@ -27,5 +27,6 @@
     "jest": "^24.9.0"
   },
   "dependencies": {
+    "line-reader": "^0.4.0"
   }
 }

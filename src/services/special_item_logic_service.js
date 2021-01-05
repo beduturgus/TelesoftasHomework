@@ -48,4 +48,7 @@ const logic_object = {
 }
 
 
-module.exports = {apply_special_item_rules}
+module.exports = {
+  apply_special_item_rules,
+  logic_object
+}

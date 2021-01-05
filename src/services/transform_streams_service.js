@@ -5,20 +5,19 @@ const {apply_special_item_rules} = require('./special_item_logic_service')
 
 const SPECIAL_ITEMS = ['sulfuras', 'aged brie', 'backstage passes', 'conjured']
 
-const daily_transform = new Transform({
+const update_stream = new Transform({
   transform(chunk, encoding, callback) {
     const chunk_string = chunk.toString()
     const item = new Item(get_name(chunk_string), get_sellIn(chunk_string), get_quality(chunk_string))
     const result = perform_update(item, get_day_count(chunk_string))
-
     this.push(JSON.stringify(result))
     callback()
   }
 })
 
-const perform_update = (item, days, counter = 0) => {
+const perform_update = (item, days = 1, counter = 0) => {
   if(!SPECIAL_ITEMS.some(str => item.name.toString().toLowerCase().includes(str))) {
-    performDailyReduction(item)
+    perform_daily_reduction(item)
   }
   const res = apply_special_item_rules(item)
   counter++
@@ -29,7 +28,7 @@ const perform_update = (item, days, counter = 0) => {
   }
 }
 
-const performDailyReduction = (item) => {
+const perform_daily_reduction = (item) => {
   let quality = parseInt(item.quality)
   let sellIn = parseInt(item.sellIn)
 
@@ -44,5 +43,7 @@ const performDailyReduction = (item) => {
 }
 
 module.exports = {
-  daily_transform,
+  update_stream,
+  perform_daily_reduction,
+  perform_update
 }
