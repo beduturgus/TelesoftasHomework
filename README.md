@@ -8,7 +8,7 @@ App updates every item according to business rules and stores it to specific fil
 Node 15,
 Jest,
 Node streams,
-Stryker
+Stryker,
 Npm
 
 ## Getting started
